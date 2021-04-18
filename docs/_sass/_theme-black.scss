@@ -2,8 +2,7 @@
 
 // Color variables
 $black: #181818;
-$red: #E74727;
-$red-small: #DC3918;
+$red: #ff0000;
 $white: #fff;
 
 // Config
@@ -13,7 +12,7 @@ $color-foreground: $white !default;
 $color-title: $white !default;
 $color-body-text: $black !default;
 $color-text-accent: $red !default;
-$color-code: $red-small !default;
+$color-code: $red !default;
 $color-nav-link: $red !default;
 $color-primary-link: $red !default;
 
