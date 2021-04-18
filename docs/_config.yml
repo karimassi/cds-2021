@@ -29,10 +29,8 @@ github_repo: railgraph-ch
 
 # Build settings
 remote_theme: broccolini/swiss
-markdown: kramdown
+theme_color: black
 
-pages:
-  - About
 
 # Exclude from processing.
 # The following items will not be processed, by default.

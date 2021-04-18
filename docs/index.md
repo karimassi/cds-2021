@@ -12,3 +12,5 @@ Il s’agira dans ce travail d'analyser la topologie du réseau ferroviaire suis
 
 Une telle modélisation nous permettra donc d'étudier les différentes propriétés du réseau comme la centralité des gares ou encore le poids de certains tronçons au sein du système ferroviaire. Des méthodes comme le clustering ou encore la détection d’éléments connectés pourraient nous aider à identifier des zones mal desservies. 
 
+<br/><br/>
+<iframe src="network.html" height="800px" width="100%" style="border:none;"></iframe>
