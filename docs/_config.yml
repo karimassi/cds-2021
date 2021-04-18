@@ -23,7 +23,7 @@ email: karim.assi@epfl.ch
 description: >- # this means to ignore newlines until "baseurl:"
   Une étude de la topologie du réseau ferroviaire suisse.
 baseurl: "/railgraph-ch" # the subpath of your site, e.g. /blog
-url: "http://karimassi.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://karimassi.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  karimassi
 github_repo: railgraph-ch
 
