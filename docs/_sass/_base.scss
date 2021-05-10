@@ -36,8 +36,9 @@ body {
 }
 
 p {
+  text-align: justify;
   margin-top: 0;
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -51,12 +52,3 @@ h3, .h3 { font-size: $h3-size; }
 h4, .h4 { font-size: $h4-size; }
 h5, .h5 { font-size: $h5-size; }
 h6, .h6 { font-size: $h6-size; text-transform: uppercase; letter-spacing: 0.02em; }
-
-a {
-  color: inherit;
-  text-decoration: underline;
-}
-
-a:hover {
-  text-decoration: underline;
-}

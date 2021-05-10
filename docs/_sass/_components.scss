@@ -15,16 +15,69 @@ code {
     padding: 1px 0px;
 }
 
+// Markdown tables
+table {
+  border-collapse: collapse;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  padding-bottom: 1.5em;
+  padding-top: 1.5em;
+  overflow: auto;
+  // For Firefox to horizontally scroll wider tables.
+  word-break: normal;
+  word-break: keep-all;
+
+  th {
+    font-weight: bold;
+    text-align: left;
+  }
+
+  th,
+  td {
+    padding: $spacer-2 $spacer-3 $spacer-2 2px;
+    border-top: 1px solid $color-body-text;
+    border-bottom: 1px solid $color-body-text;
+  }
+
+  tr {
+    background-color: #fff;
+    border-top: 1px solid $color-body-text;
+  }
+
+  tr th {
+    border-top: 2px solid $color-body-text;
+    border-bottom: 2px solid $color-body-text;
+  }
+}
+
+
+blockquote {
+  text-align: justify;
+  padding-left: 20px;
+  margin: 40px 20px 40px 20px;
+  border-left: $spacer-1 solid $red;
+  font-style: italic;
+
+  p {
+    text-align: right; 
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: $red;
+  text-decoration: underline;
+}
+
+
 
 .prose {
-
-  a {
-    text-decoration: underline dotted;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
 
   p, ol, ul {
     font-size: $prose-font-size;
@@ -59,30 +112,6 @@ code {
 
   }
 
-  blockquote {
-    line-height: 1.375;
-    padding-left: 20px;
-    margin: 40px 0 40px -16px;
-    border-left: $spacer-1 solid $color-border;
-    font-style: italic;
-
-    p {
-      font-size: 24px;
-    }
-
-    @media (min-width: $breakpoint-lg) {
-      padding-left: $spacer-3;
-      margin: $spacer-4 0 $spacer-4 -40px;
-      max-width: (11 / 10 * 100%);
-
-      p {
-        font-size: 32px;
-      }
-
-    }
-
-  }
-
   hr {
     color: $color-body-text;
     border-style: solid;
@@ -100,40 +129,6 @@ code {
   dd {
     font-style: italic;
     margin-bottom: 0.5em;
-  }
-
-  // Markdown tables
-  table {
-    border-collapse: collapse;
-    display: block;
-    width: 100%;
-    margin-bottom: 1.5em;
-    overflow: auto;
-    // For Firefox to horizontally scroll wider tables.
-    word-break: normal;
-    word-break: keep-all;
-
-    th {
-      font-weight: bold;
-      text-align: left;
-    }
-
-    th,
-    td {
-      padding: $spacer-2 $spacer-3 $spacer-2 2px;
-      border-top: 1px solid $color-body-text;
-      border-bottom: 1px solid $color-body-text;
-    }
-
-    tr {
-      background-color: #fff;
-      border-top: 1px solid $color-body-text;
-    }
-
-    tr th {
-      border-top: 2px solid $color-body-text;
-      border-bottom: 2px solid $color-body-text;
-    }
   }
 
 }

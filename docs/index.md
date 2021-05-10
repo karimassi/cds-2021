@@ -8,9 +8,11 @@ Cependant, des disparités en matière d’offre ferroviaire peuvent apparaître
 <br/><br/>
 **La typologie du réseau ferroviaire helvétique traduit-elle des particularités territoriales suisses ?**
 <br/><br/>
-Il s’agira dans ce travail d'analyser la topologie du réseau ferroviaire suisse d’un point de vue (purement) mathématique. Dans un premier temps, nous étudierons les données [GTFS](https://developers.google.com/transit/gtfs/?hl=fr) mises à disposition par les CFF afin de construire un graphe représentant le réseau ferré. Ensuite, à l’aide d’outils d’analyse de graphes, nous étudierons les propriétés de ce dernier pour détecter des particularités territoriales et créer une typologie. 
+Il s’agira dans ce travail d'analyser la topologie du réseau ferroviaire suisse d’un point de vue (purement) mathématique. Dans un premier temps, nous étudierons les données [GTFS](https://developers.google.com/transit/gtfs/?hl=fr) (*General Transit Feed Specification*) mises à disposition par les CFF afin de construire un graphe représentant le réseau ferré. Ensuite, à l’aide d’outils d’analyse de graphes, nous étudierons les propriétés de ce dernier pour détecter des particularités territoriales et créer une typologie. 
 
 Une telle modélisation nous permettra donc d'étudier les différentes propriétés du réseau comme la centralité des gares ou encore le poids de certains tronçons au sein du système ferroviaire. Des méthodes comme le clustering ou encore la détection d’éléments connectés pourraient nous aider à identifier des zones mal desservies. 
+
+Nous profiterons également de porter un regard critique sur la représentation des données de transport et ses limites ainsi que sur la comparabilité et interprétabilité des résultats de notre étude. Pour cela, nous comparerons d’abord les différents moyens de représenter des données de transport, pour tenter de justifier l’utilisation du standard GTFS. Nous verrons ensuite dans quelles mesures des études similaires peuvent être comparées.
 
 <br/><br/>
 
@@ -20,9 +22,64 @@ Une telle modélisation nous permettra donc d'étudier les différentes proprié
 <option value="network_betweenness.html">Betweenness centrality</option>
 <option value="network_communities.html">Community detection</option>
 </SELECT>
-
-<br/><br/>
+</form>
 
 <iframe src="network.html" id="map" height="800px" width="100%" style="border:none;"></iframe>
 
-<!-- <iframe src="network.html" height="800px" width="100%" style="border:none;"></iframe> -->
+
+## À propos du format des données 
+
+Il existe plusieurs façons de représenter les données de transport, chacune étant adéquate à telle ou telle utilisation. Il est donc légitime de se demander si le format GTFS que nous utilisons pour construire le graphe du réseau ferré suisse répond bien à nos demandes, et si d’autres alternatives auraient pu être utilisées. Parmi les autres formats disponibles, nous pouvons citer NeTEx (*Network Timetable Exchange*), le *Public Transport Version 2* (ptv2) d’OpenStreetMap, et le graphe de connaissances WikiData. 
+
+Les trois formats mentionnés ci-dessus permettent la représentation d’informations et de relations complexes, comme la différenciation des quais et des entrées au sein d’une gare. Il est donc important de se limiter aux fonctionnalités dont nous avons besoin pour cette étude, notamment la représentation des gares, celle de la politique de desserte des différentes lignes, et le lien entre les deux. 
+
+### La représentation des lignes
+
+Les lignes de transport public opèrent le long d’itinéraires prédéfinis, s'arrêtant à plusieurs arrêts pour la montée et la descente de passagers. Prenons par exemple la ligne IR 90 reliant Brig à Genève-Aéroport qui dessert systématiquement les villes principales contrairement aux villes secondaires, desservies ou non selon les différents services.
+
+| Format | Commentaire | Exemple |
+|-|-|-|
+| GTFS | Fait la distinction entre une ligne et les itinéraires qui opèrent sur cette dernière. On peut dire que ce format offre une vision temporelle des lignes, car il permet aussi de spécifier les horaires (jours, et heures exactes) de chaque itinéraire.  | L’itinéraire s'arrêtant à Genève, Nyon, Morges puis Lausanne est différent de celui qui lie directement Lausanne à Genève. Ces deux différents itinéraires sont opérés sur la même ligne IR 90. |
+| ptv2, OpenStreetMap | Ne fait pas la distinction entre itinéraires, et représente une ligne d’un point de vue géographique. La modélisation des lignes sur OSM est loin d’être homogène. La couverture des lignes n’est pas exhaustive, malgré tous les efforts mis en place pour instaurer un format commun. | La [ligne IR 90](https://www.openstreetmap.org/relation/7796313) sur OpenStreetMap. En choisissant une direction, il est possible de visualiser les arrêts de la ligne et de les obtenir grâce à l’attribut “membres”.  |
+| WikiData | Ne permet pas de représenter des lignes commerciales spécifiques. Le format contient des informations plus génériques comme “ligne du Simplon” plutôt que "IR 90". Très peu de lignes  commerciales de transport y sont modélisées.  | [Ligne du Simplon](https://www.wikidata.org/wiki/Q667559) sur WikiData. |
+| NeTEx | Similaire au format GTFS. |  |
+
+### La représentation des gares
+
+La représentation des gares est très similaire dans les quatre formats. Ils emploient tous la notion de points d'arrêt. Nous nous intéressons à la localisation des gares et au lien entre ces dernières et les lignes. 
+
+| Format | Localisation | Relation arrêts-lignes | Exemple |
+|-|-|-|-|
+| GTFS | Obligatoire | Le lien entre une ligne et ses arrêts est indirect et est lié aux horaires de la ligne et de ses services |  |
+| ptv2, OpenStreetMap | Obligatoire | Le lien entre une ligne et ses arrêts est explicitement indiqué. | La [gare de Lausanne](https://www.openstreetmap.org/node/1800313662) sur OpenStreetMap |
+| WikiData | Obligatoire | Le lien entre un arrêt et une ligne est parfois indiqué.  | La [gare de Lausanne](https://www.wikidata.org/wiki/Q669678) sur WikiData |
+| NeTEx | Optionnelle  | Permet d’obtenir les arrêts d’une ligne de manière plus directe. | |
+
+### Disponibilité des formats
+
+Il est possible de télécharger directement les données au format GTFS ou NeTEx : ces formats sont indépendants de toute plateforme. Dans le cas de WikiData et d’OpenStreetMap, il est nécessaire de faire recours à du web scraping pour récupérer les informations nécessaires.
+
+En Suisse, CFF Infrastructure est responsable de la conduite des tâches systémiques relatives aux données d’informations voyageurs ou SKI (*Systemaufgaben der Kundeninformation*). Le Secrétariat des tâches SKI valide officiellement le format HRDF qu’il retranscrit automatiquement au format GTFS. Le support pour le format NeTEx est encore en phase alpha de test. 
+
+Les plateformes OpenStreetMap et WikiData sont accessibles et modifiables par le grand public. Leur utilisation à l'échelle Suisse n’est pas adéquate vu qu’il existe une alternative officielle. Cependant, dans le cadre d’un projet à échelle plus large (européenne ou mondiale), il serait envisageable de les utiliser comme source unique de données, au lieu d'agréger les sources de plusieurs pays. 
+
+## Interprétabilité de l’étude
+
+À partir du graphe construit, nous avons eu l’occasion de réaliser plusieurs analyses sur l’objet mathématique obtenu. Pour choisir les mesures adéquates, nous nous sommes inspirés d’études similaires effectuées dans d’autres pays ou villes.  
+
+Comme Boyd et Crawford le mentionnent dans leur *deuxième* provocation pour les Big Data, l’impératif  d’objectivité et d'exactitude est trompeur. Lors de la construction initiale du graphe, nous avons dû faire des choix quant au nettoyage et au traitement des données. Dès lors, notre analyse devient subjective et nous sommes limités en matière de comparaison et d’interprétation. 
+
+<blockquote>
+As a large mass of raw information, Big Data is not self-explanatory. And yet the specific methodologies for interpreting the data are open to all sorts of philosophical debate. Can the data represent an “objective truth” or is any interpretation necessarily biased by some subjective filter or the way that data is “cleaned?”
+<p>‒ David Bollier, The Promise and Peril of Big Data</p>
+</blockquote>
+
+En effet, pour pouvoir comparer des analyses, il faut que ces dernières soient effectuées dans des conditions similaires. Rien ne garantit que notre graphe a été construit de la même manière que celui d’une étude connexe. De plus, chaque ville ou pays connaît une situation unique, et une géographie propre à son territoire. Il faut donc tenir compte de cela lors de la comparaison des résultats d’un pays à l’autre. Alors qu'il est vrai que nous abstrayons le réseau ferroviaire sous forme de graphe, le contexte reste essentiel : cela résonne avec la *quatrième* provocation de Boyd et Crawford. 
+
+Enfin, notre graphe croise deux sources d’information : les données GTFS d’une part, et les statistiques sur le nombre de personnes montant et descendant des trains par gare d’autre part. Le nombre de gares dans la première est largement supérieur au nombre de gares de la deuxième. Nous avons, ici aussi, dû faire un choix qui introduit un biais devant être pris en compte lors de l’interprétation des résultats. Il est pertinent de faire le lien avec la troisième *provocation* de Boyd et Crawford, stipulant que l’abondance des données ne rime pas avec qualité. 
+
+<blockquote>
+“Every one of those sources is error-prone, and there are assumptions that you can safely match up two pieces together. So I think we are just magnifying that problem [when we combine multiple data sets]. There are a lot of things we can do to correct such problems, but all of them are hypothesis-driven.”
+<p> ‒ Jesper Andersen</p>
+
+</blockquote>
