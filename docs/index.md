@@ -123,3 +123,4 @@ Nous trouvons une valeur de 0.26 pour le Cluster Coefficient, comparé à 0.97 t
 
 Nous avons aussi des valeurs de centralité qui sont très petites comparées à celles de l'autre étude. Nous estimons que cela vient de deux causes, l'hypothèse que le réseau suisse est de nature décentralisée et le fait de ne pas prendre chaque ligne en compte qu'une fois.
 
+Tout ceci dit, nous sommes clairement dans une situation où nous avons fait des choix, qui n'étaient pas clarifiés dans l'étude de Mohamad et Wang, et qui ne sont apparemment pas les mêmes chois qu'eux. Ce qui parle d'un manque de transparence, et donc un manque de réplicabilité dans l'étude susmentionnée
