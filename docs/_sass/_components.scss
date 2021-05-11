@@ -75,7 +75,15 @@ a:hover {
   text-decoration: underline;
 }
 
+li {
+  margin-bottom: 0.5em;
+  margin-left: 40px;
+  margin-right: 40px;
 
+  ul li, ol li {
+    margin-bottom: 0;
+  }
+}
 
 .prose {
 

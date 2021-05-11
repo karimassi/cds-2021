@@ -14,18 +14,79 @@ Une telle modélisation nous permettra donc d'étudier les différentes proprié
 
 Nous profiterons également de porter un regard critique sur la représentation des données de transport et ses limites ainsi que sur la comparabilité et interprétabilité des résultats de notre étude. Pour cela, nous comparerons d’abord les différents moyens de représenter des données de transport, pour tenter de justifier l’utilisation du standard GTFS. Nous verrons ensuite dans quelles mesures des études similaires peuvent être comparées.
 
-<br/><br/>
+## Travaux connexes
+
+Beaucoup de chercheurs se sont aussi intéressés à l'analyse des réseaux formés par les systèmes de transport public, et ce à différentes échelles. Il est donc intéressant de citer quelques travaux similaires au notre, à des fins de comparaison. Cela s'averera utile lors du choix des analyses à effectuer.
+
+- Mohmand & Wang (2014) étudient les propriétés structuelles du réseau ferroviaire pakistanais,
+- Soh et al. (2010) apportent une analyse de réseau complexe pondéré des itinéraires de voyage sur les systèmes de transport par rail et par bus de Singapour,
+- De Regt et al. (2019) étudient les caractéristiques topologiques et spatiales des réseaux de transport public au Royaume-Uni, 
+- Erath et al. (2009) étudient le développement du réseau routier et ferroviaire suisse au cours des années 1950-2020.
+
+## La construction du graphe
+
 
 <form name="change">
 <SELECT NAME="options" ONCHANGE="document.getElementById('map').src = this.options[this.selectedIndex].value">
 <option value="network.html">Base graph</option>
 <option value="network_betweenness.html">Betweenness centrality</option>
-<option value="network_communities.html">Community detection</option>
+<!-- <option value="network_communities.html">Community detection</option> -->
 </SELECT>
 </form>
 
+<br/><br/>
+
 <iframe src="network.html" id="map" height="800px" width="100%" style="border:none;"></iframe>
 
+## L'analyse du réseau
+
+<!-- #### Détection de communautés
+Nous commençons par parler de la détection de communautés. L'algorihtme choisi pour cela était `Modularity Community Detection`. Cet algorithme cherche à maximiser la modularité du graph, c'est à dire à le séparer en des sous-graphs qui seront très connexes mais pas très interconnectés. Cette approche nous a laissé avec 50 sous graphes différents avec les 10 les plus grands couvrant la majorité du territoire suisse. Cependant nous avons l'obligation de poser la question sur le vrai sens de ces classifications mathématiques, et il s'avère que des lacunes se présentent tout de suite.
+
+On observe que les frontières inter-communautaires ne sont pas très pertinentes. Des gares qui appartiennent à la même ville peuvent se trouver dans deux communautés différentes du point de vue de l'analyse. Par exemple on a la gare de Lausanne qui dans une communauté séparé de Prilly-Malley, de même pour Basel SBB et Basel-Dreispitz. Il nous semble donc que le choix de cette méthode d'analyse n'était pas approprié à la nature du réseau de chemin de fer suisse. -->
+
+<!-- ### Comparaison avec les résultats d'un autre étude -->
+
+Une fois le graphe représentant le réseau ferroviaire construit, nous pouvons passer à son analyse. Nous avons trouvé pertinant de travailler avec des statistiques identiques à celles utilisées dans les études mentionnées plus haut. En s'aidant des guides de Ducruet (2010), nous avons étudié les caractéristiques locales et globales de notre graphe.  
+
+Les résultats sont présentés dans le tableau ci-dessous. Nous avons aussi rapporté ceux des travaux connexes à des fins de comparaison. Remarquez la distinction entre Réseau Ferré (RF) et Transport Public (TP).
+
+| Propriété | Traduction | RF Suisse | RF Pakistanais | TP Singapourien | RF Britanique | RF Chinois |
+|-|-|:-:|:-:|:-:|:-:|:-:|
+| Nombre de noeuds | Number of nodes | 1663 | 628 | 93 | 2575 | 1192 |
+| Nombre de liens | Number of edges | 2514 | 6078 | 3843 | 4450 | 67594 |
+| Diamètre | Diameter | 36 | 5 | 2 | 48 | - |
+| Chemin le plus court moy. | Shortest path (avg.) | 10.319 | 3.15 | 1.101 | 11.82 | 2.21 |
+| Efficacité | Efficiency | 0.1068 | 0.25 | - | - | - |
+| Centralité de proximité moy.| Closeness centrality (avg.) | 0.0917 | 0.2 | - | - | 0.46 |
+| Centralité d’intermédiarité moy.| Betweenness centrality (avg.) | 0.0074 | 0.01 | - | - | 0.001 |
+| Degré moyen | Average degree | 3.0271 | 19.36 | 82.6452 | 3.46 | 113 |
+| Plage de degrés | Degree range | (1, 29) | (2, 69) | (35,92) | (-, 31) | (1, 673) |
+| Transitivité moyenne | Average clustering | 0.2602 | 0.97 | 0.9341 | 0.309 | 0.68 |
+| Assortativité | Assortativity | 0.2815 | 0.34 | −0.0875 | 0.24 | - |
+
+<!-- Nous commençons par explorer la distribution des degrés des noeuds -->
+
+<!-- ![Degree distribution](degree_dist.png) -->
+
+En comparaison au nombre de noeuds, le nombre de liens semble insuffisant. De plus, les noeuds ont un degré moyen de 3: c'est à dire qu'il y a plus de gares très peu connectés qu'il n'y a de grandes gares connectées. La transitivité moyenne de 0.26 est caractéristique d'un réseau décentralisé, sans beaucoup de gares centrales. Cela justifie aussi la centralité de proximité moyenne très basse.
+
+### Centralité des noeuds
+
+| Gare | Centralité d’intermédiarité |  |  |  | Gare | Centralité de proximité |
+|-|:-:|-|-|-|-|:-:|
+| Olten | 0.4795 |  |  |  | Olten | 0.1629 |
+| Brig | 0.3930 |  |  |  | Zürich HB | 0.1621 |
+| Zürich HB | 0.3384 |  |  |  | Bern | 0.1615 |
+| Zollikofen | 0.2799 |  |  |  | Basel SBB | 0.1588 |
+| Basel SBB | 0.2587 |  |  |  | Münsingen | 0.1511 |
+| Münsingen | 0.2486 |  |  |  | Brig | 0.1509 |
+| Bellinzona | 0.2277 |  |  |  | Aarau | 0.1505 |
+| Nyon | 0.1736 |  |  |  | Oensingen | 0.1489 |
+| Sion | 0.1692 |  |  |  | Brugg AG | 0.1489 |
+| Lausanne | 0.1669 |  |  |  | Fribourg/Freiburg | 0.1479 |
+
+<!-- Tout ceci dit, nous sommes clairement dans une situation où nous avons fait des choix, qui n'étaient pas clarifiés dans l'étude de Mohamad et Wang, et qui ne sont apparemment pas les mêmes chois qu'eux. Ce qui parle d'un manque de transparence, et donc un manque de réplicabilité dans l'étude susmentionnée -->
 
 ## À propos du format des données 
 
@@ -81,46 +142,6 @@ Enfin, notre graphe croise deux sources d’information : les données GTFS d’
 <blockquote>
 “Every one of those sources is error-prone, and there are assumptions that you can safely match up two pieces together. So I think we are just magnifying that problem [when we combine multiple data sets]. There are a lot of things we can do to correct such problems, but all of them are hypothesis-driven.”
 <p> ‒ Jesper Andersen</p>
-
 </blockquote>
 
-### Exposition et discussion des résultats
 
-#### Détection de communautés
-Nous commençons par parler de la détection de communautés. L'algorihtme choisi pour cela était `Modularity Community Detection`. Cet algorithme cherche à maximiser la modularité du graph, c'est à dire à le séparer en des sous-graphs qui seront très connexes mais pas très interconnectés. Cette approche nous a laissé avec 50 sous graphes différents avec les 10 les plus grands couvrant la majorité du territoire suisse. Cependant nous avons l'obligation de poser la question sur le vrai sens de ces classifications mathématiques, et il s'avère que des lacunes se présentent tout de suite.
-
-On observe que les frontières inter-communautaires ne sont pas très pertinentes. Des gares qui appartiennent à la même ville peuvent se trouver dans deux communautés différentes du point de vue de l'analyse. Par exemple on a la gare de Lausanne qui dans une communauté séparé de Prilly-Malley, de même pour Basel SBB et Basel-Dreispitz. Il nous semble donc que le choix de cette méthode d'analyse n'était pas approprié à la nature du réseau de chemin de fer suisse.
-
-#### Comparaison avec les résultats d'un autre étude
-
-Nous avons trouvé intéressant le prospect de chercher une étude similaire, faire les mêmes analyses qu'ils font et comparer les résultats qu'on a avec les leurs tout en restant vigilant aux différences entre le réseau suisse étudié dans notre cas et le réseau sujet de leur étude. On a donc choisi l'étude [Complex Network Analysis of Pakistan Railways](http://www.hindawi.com/journals/ddns/2014/126261/) de Mohamad et Wang.
-
-Nous commençons par explorer la distribution des degrés des noeuds
-
-![Degree distribution](degree_dist.png)
-
-On se confronte tout de suite à une valeur suspecte, celle du minimum de degrés des noeuds. Une valeur de zéro veux dire qu'il existe des noeuds non attachés à d'autres, ce qui n'a pas de sense dans le context d'un réseau ferré. Ceci nous amène à dire qu'il y a eu un problème dans notre construction du graph à partir du dataset ou bien qu'il y a une erreur dans le dataset même.
-
-Nous présentons en bas les résultats trouvés:
-
-|                      |   Network Properties |
-|:---------------------|---------------------:|
-| Number of Nodes      |            1663      |
-| Number of Edges      |            2514
-| Efficiency           |           0.106554   |
-| Closeness Centrality |           0.00682766 |
-| Betweenness Centrality|         0.00742207 |
-| Average Degree       |           3.02345    |
-| Degree Range         |            (0, 29)  |
-| Average Cluster Coefficient      |           0.259854   |
-| Assortativity        |            0.28146263|
-
-Nous avons un problème au niveau du nombre de liens dans le graph, nous avons très peu de lien comparé au nombre de noeuds, même pas le double, tandis que l'étude au Pakistan se trouve avec dix fois le nombre de gares, Ceci est car, en construisant le graph, on ne garde qu'on ne compte qu'une fois chaque ligne de train même s'il passe plusieurs fois par jour, ceci est probablement pas le cas pour eux.
-
-Nous constatons aussi une grande divergence dans le degré moyenne des noeuds, notre analyse donne un résultat de 3.02, pourtant l'analyse de Mohamad et Wang trouve un degré de 19.36. Ceci veut dire que la moyenne noeud dans leur graph est beaucoup plus connecté que dans le notre, ceci est probablement dû à la même raison que le constat précédent.
-
-Nous trouvons une valeur de 0.26 pour le Cluster Coefficient, comparé à 0.97 trouvé pour le réseau au Pakistan, ceci correspond à un réseau avec moins de gares centrales et plus de distribution dans la connexion, ce qui colle bien avec notre hypothèse de départ.
-
-Nous avons aussi des valeurs de centralité qui sont très petites comparées à celles de l'autre étude. Nous estimons que cela vient de deux causes, l'hypothèse que le réseau suisse est de nature décentralisée et le fait de ne pas prendre chaque ligne en compte qu'une fois.
-
-Tout ceci dit, nous sommes clairement dans une situation où nous avons fait des choix, qui n'étaient pas clarifiés dans l'étude de Mohamad et Wang, et qui ne sont apparemment pas les mêmes chois qu'eux. Ce qui parle d'un manque de transparence, et donc un manque de réplicabilité dans l'étude susmentionnée
