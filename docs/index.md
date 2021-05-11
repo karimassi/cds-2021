@@ -83,3 +83,43 @@ Enfin, notre graphe croise deux sources d’information : les données GTFS d’
 <p> ‒ Jesper Andersen</p>
 
 </blockquote>
+
+### Exposition et discussion des résultats
+
+#### Détection de communautés
+Nous commençons par parler de la détection de communautés. L'algorihtme choisi pour cela était `Modularity Community Detection`. Cet algorithme cherche à maximiser la modularité du graph, c'est à dire à le séparer en des sous-graphs qui seront très connexes mais pas très interconnectés. Cette approche nous a laissé avec 50 sous graphes différents avec les 10 les plus grands couvrant la majorité du territoire suisse. Cependant nous avons l'obligation de poser la question sur le vrai sens de ces classifications mathématiques, et il s'avère que des lacunes se présentent tout de suite.
+
+On observe que les frontières inter-communautaires ne sont pas très pertinentes. Des gares qui appartiennent à la même ville peuvent se trouver dans deux communautés différentes du point de vue de l'analyse. Par exemple on a la gare de Lausanne qui dans une communauté séparé de Prilly-Malley, de même pour Basel SBB et Basel-Dreispitz. Il nous semble donc que le choix de cette méthode d'analyse n'était pas approprié à la nature du réseau de chemin de fer suisse.
+
+#### Comparaison avec les résultats d'un autre étude
+
+Nous avons trouvé intéressant le prospect de chercher une étude similaire, faire les mêmes analyses qu'ils font et comparer les résultats qu'on a avec les leurs tout en restant vigilant aux différences entre le réseau suisse étudié dans notre cas et le réseau sujet de leur étude. On a donc choisi l'étude [Complex Network Analysis of Pakistan Railways](http://www.hindawi.com/journals/ddns/2014/126261/) de Mohamad et Wang.
+
+Nous commençons par explorer la distribution des degrés des noeuds
+
+![Degree distribution](degree_dist.png)
+
+On se confronte tout de suite à une valeur suspecte, celle du minimum de degrés des noeuds. Une valeur de zéro veux dire qu'il existe des noeuds non attachés à d'autres, ce qui n'a pas de sense dans le context d'un réseau ferré. Ceci nous amène à dire qu'il y a eu un problème dans notre construction du graph à partir du dataset ou bien qu'il y a une erreur dans le dataset même.
+
+Nous présentons en bas les résultats trouvés:
+
+|                      |   Network Properties |
+|:---------------------|---------------------:|
+| Number of Nodes      |            1663      |
+| Number of Edges      |            2514
+| Efficiency           |           0.106554   |
+| Closeness Centrality |           0.00682766 |
+| Betweenness Centrality|         0.00742207 |
+| Average Degree       |           3.02345    |
+| Degree Range         |            (0, 29)  |
+| Average Cluster Coefficient      |           0.259854   |
+| Assortativity        |            0.28146263|
+
+Nous avons un problème au niveau du nombre de liens dans le graph, nous avons très peu de lien comparé au nombre de noeuds, même pas le double, tandis que l'étude au Pakistan se trouve avec dix fois le nombre de gares, Ceci est car, en construisant le graph, on ne garde qu'on ne compte qu'une fois chaque ligne de train même s'il passe plusieurs fois par jour, ceci est probablement pas le cas pour eux.
+
+Nous constatons aussi une grande divergence dans le degré moyenne des noeuds, notre analyse donne un résultat de 3.02, pourtant l'analyse de Mohamad et Wang trouve un degré de 19.36. Ceci veut dire que la moyenne noeud dans leur graph est beaucoup plus connecté que dans le notre, ceci est probablement dû à la même raison que le constat précédent.
+
+Nous trouvons une valeur de 0.26 pour le Cluster Coefficient, comparé à 0.97 trouvé pour le réseau au Pakistan, ceci correspond à un réseau avec moins de gares centrales et plus de distribution dans la connexion, ce qui colle bien avec notre hypothèse de départ.
+
+Nous avons aussi des valeurs de centralité qui sont très petites comparées à celles de l'autre étude. Nous estimons que cela vient de deux causes, l'hypothèse que le réseau suisse est de nature décentralisée et le fait de ne pas prendre chaque ligne en compte qu'une fois.
+
