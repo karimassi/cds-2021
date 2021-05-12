@@ -40,10 +40,6 @@ Beaucoup de chercheurs se sont aussi intéressés à l'analyse des réseaux form
 
 ## L'analyse du réseau
 
-<!-- #### Détection de communautés
-Nous commençons par parler de la détection de communautés. L'algorihtme choisi pour cela était `Modularity Community Detection`. Cet algorithme cherche à maximiser la modularité du graph, c'est à dire à le séparer en des sous-graphs qui seront très connexes mais pas très interconnectés. Cette approche nous a laissé avec 50 sous graphes différents avec les 10 les plus grands couvrant la majorité du territoire suisse. Cependant nous avons l'obligation de poser la question sur le vrai sens de ces classifications mathématiques, et il s'avère que des lacunes se présentent tout de suite.
-
-On observe que les frontières inter-communautaires ne sont pas très pertinentes. Des gares qui appartiennent à la même ville peuvent se trouver dans deux communautés différentes du point de vue de l'analyse. Par exemple on a la gare de Lausanne qui dans une communauté séparé de Prilly-Malley, de même pour Basel SBB et Basel-Dreispitz. Il nous semble donc que le choix de cette méthode d'analyse n'était pas approprié à la nature du réseau de chemin de fer suisse. -->
 
 <!-- ### Comparaison avec les résultats d'un autre étude -->
 
@@ -71,6 +67,8 @@ Les résultats sont présentés dans le tableau ci-dessous. Nous avons aussi rap
 
 En comparaison au nombre de noeuds, le nombre de liens semble insuffisant. De plus, les noeuds ont un degré moyen de 3: c'est à dire qu'il y a plus de gares très peu connectés qu'il n'y a de grandes gares connectées. La transitivité moyenne de 0.26 est caractéristique d'un réseau décentralisé, sans beaucoup de gares centrales. Cela justifie aussi la centralité de proximité moyenne très basse.
 
+En outre nous avons trouvé intéressant de faire une détection de communauté sur le réseau étudié, l'algorithme choisi pour cela était la `détection de communautés par modularité`. Cet algorithme cherche à maximiser la modularité du graph, c'est-à-dire à le séparer en des sous-graphs qui seront très connexes mais peu interconnectés. Cette approche introduit 55 sous graphes différents avec les 10 les plus grands couvrant la majorité du territoire suisse.
+ 
 ### Centralité des noeuds
 
 | Gare | Centralité d’intermédiarité |  |  |  | Gare | Centralité de proximité |
@@ -135,7 +133,11 @@ As a large mass of raw information, Big Data is not self-explanatory. And yet th
 <p>‒ David Bollier, The Promise and Peril of Big Data</p>
 </blockquote>
 
+Par exemple, on serait peut-être tentés de dire que le réseau ferré pakistanais est plus connexes du réseau suisse vu le degré moyen elevé, cependant un regard plus critique révèle que la différence est la définition du réseau ferré, dans notre analyse nous incluons les trains régionaux et les grandes lignes dans cette définition, pourtant Mohamad et Wang incluent aussi les métros, ce qui introduit beaucoup plus de stations avec une grande connectivité.
+
 En effet, pour pouvoir comparer des analyses, il faut que ces dernières soient effectuées dans des conditions similaires. Rien ne garantit que notre graphe a été construit de la même manière que celui d’une étude connexe. De plus, chaque ville ou pays connaît une situation unique, et une géographie propre à son territoire. Il faut donc tenir compte de cela lors de la comparaison des résultats d’un pays à l’autre. Alors qu'il est vrai que nous abstrayons le réseau ferroviaire sous forme de graphe, le contexte reste essentiel : cela résonne avec la *quatrième* provocation de Boyd et Crawford. 
+
+Nous avons aussi les résultats de la détection de communautés qui semblent à première vue très satisfaisant et plutôt représentant les communautés tarifaires en Suisse, comme la communauté autour de Lausanne ou celle au Grisons. Nous voyons cependant des problèmes dans l'interprétabilité des résultats. Prenons l'exemple de Brig au Valais qui est inclus dans le même sous graph que Bern et Bâle, ou le fait que Palézieux et Palézieux-village sont dans deux communautés différentes. Ceci montre une limitation du choix de l'algorithme qui a défini ces sous graphs.
 
 Enfin, notre graphe croise deux sources d’information : les données GTFS d’une part, et les statistiques sur le nombre de personnes montant et descendant des trains par gare d’autre part. Le nombre de gares dans la première est largement supérieur au nombre de gares de la deuxième. Nous avons, ici aussi, dû faire un choix qui introduit un biais devant être pris en compte lors de l’interprétation des résultats. Il est pertinent de faire le lien avec la troisième *provocation* de Boyd et Crawford, stipulant que l’abondance des données ne rime pas avec qualité. 
 
