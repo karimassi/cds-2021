@@ -1,3 +1,2 @@
-def linear_scaler(domain, range):
-    return lambda x: (x-domain[0])/(domain[1]-domain[0])*(range[1]-range[0]) + range[0]
-
+def linear_scaler(min_, max_, lower, upper):
+    return lambda x: (((x - min_) * (upper - lower)) / (max_ - min_)) + lower

@@ -25,23 +25,10 @@ Beaucoup de chercheurs se sont aussi intéressés à l'analyse des réseaux form
 
 ## La construction du graphe
 
-
-<form name="change">
-<SELECT NAME="options" ONCHANGE="document.getElementById('map').src = this.options[this.selectedIndex].value">
-<option value="network.html">Base graph</option>
-<option value="network_betweenness.html">Betweenness centrality</option>
-<option value="network_communities.html">Community detection</option> 
-</SELECT>
-</form>
-
-<br/><br/>
-
+<br/>
 <iframe src="network.html" id="map" height="800px" width="100%" style="border:none;"></iframe>
 
 ## L'analyse du réseau
-
-
-<!-- ### Comparaison avec les résultats d'un autre étude -->
 
 Une fois le graphe représentant le réseau ferroviaire construit, nous pouvons passer à son analyse. Nous avons trouvé pertinant de travailler avec des statistiques identiques à celles utilisées dans les études mentionnées plus haut. En s'aidant des guides de Ducruet (2010), nous avons étudié les caractéristiques locales et globales de notre graphe.  
 
@@ -61,15 +48,11 @@ Les résultats sont présentés dans le tableau ci-dessous. Nous avons aussi rap
 | Transitivité moyenne | Average clustering | 0.2602 | 0.97 | 0.9341 | 0.309 | 0.68 |
 | Assortativité | Assortativity | 0.2815 | 0.34 | −0.0875 | 0.24 | - |
 
-<!-- Nous commençons par explorer la distribution des degrés des noeuds -->
-
-<!-- ![Degree distribution](degree_dist.png) -->
-
-En comparaison au nombre de noeuds, le nombre de liens semble insuffisant. De plus, les noeuds ont un degré moyen de 3: c'est à dire qu'il y a plus de gares très peu connectés qu'il n'y a de grandes gares connectées. La transitivité moyenne de 0.26 est caractéristique d'un réseau décentralisé, sans beaucoup de gares centrales. Cela justifie aussi la centralité de proximité moyenne très basse.
-
-En outre nous avons trouvé intéressant de faire une détection de communauté sur le réseau étudié, l'algorithme choisi pour cela était la `détection de communautés par modularité`. Cet algorithme cherche à maximiser la modularité du graph, c'est-à-dire à le séparer en des sous-graphs qui seront très connexes mais peu interconnectés. Cette approche introduit 55 sous graphes différents avec les 10 les plus grands couvrant la majorité du territoire suisse.
+En comparaison au nombre de noeuds, le nombre de liens semble insuffisant. De plus, les noeuds ont un degré moyen de 3 : c'est à dire qu'il y a plus de gares très peu connectés, qu'il n'y a de grandes gares connectées. La transitivité moyenne de 0.26 est caractéristique d'un réseau décentralisé, sans beaucoup de gares centrales. Cela justifie aussi la centralité de proximité moyenne très basse.
  
 ### Centralité des noeuds
+
+Les mesures de centralité permettent d'indentifier les stations qui connaissent un fort trafic et une congestion élevée. La centralité d'intermédiarité d'un noeud est le nombre de plus courts chemins qui y passent. La gare d'Olten est la plus centrale vis-à-vis de cette mesure : elle joue le rôle de carrefour entre les différentes régions de la Suisse. La centralité de proximité d'un noeud est la plus courte distance moyenne avec tous les autres noeuds: plus la valeure est grande, plus la gare est importante et offre une gamme de service plus large. Ici, la distance entre deux stations est le nombre de stations minimal qui les sépare.
 
 | Gare | Centralité d’intermédiarité |  |  |  | Gare | Centralité de proximité |
 |-|:-:|-|-|-|-|:-:|
@@ -84,7 +67,18 @@ En outre nous avons trouvé intéressant de faire une détection de communauté 
 | Sion | 0.1692 |  |  |  | Brugg AG | 0.1489 |
 | Lausanne | 0.1669 |  |  |  | Fribourg/Freiburg | 0.1479 |
 
-<!-- Tout ceci dit, nous sommes clairement dans une situation où nous avons fait des choix, qui n'étaient pas clarifiés dans l'étude de Mohamad et Wang, et qui ne sont apparemment pas les mêmes chois qu'eux. Ce qui parle d'un manque de transparence, et donc un manque de réplicabilité dans l'étude susmentionnée -->
+<br/>
+
+<iframe src="network_betweenness.html" id="map_betweenness" height="600px" width="100%" style="border:none;"></iframe>
+
+### Détection de communautés
+
+Nous avons trouvé intéressant de faire une détection de communauté sur le réseau étudié, en utilisant la *détection de communautés par modularité*. Cet algorithme cherche à maximiser la modularité du graphe, c'est-à-dire à le séparer en sous-graphes très intra-connectés mais peu interconnectés. Cette approche aboutit à 55 sous-graphes différents : les 10 les plus grands couvrent la majorité du territoire suisse.
+
+<br/>
+
+<iframe src="network_communities.html" id="map_communities" height="600px" width="100%" style="border:none;"></iframe>
+
 
 ## À propos du format des données 
 
@@ -124,7 +118,9 @@ Les plateformes OpenStreetMap et WikiData sont accessibles et modifiables par le
 
 ## Interprétabilité de l’étude
 
-À partir du graphe construit, nous avons eu l’occasion de réaliser plusieurs analyses sur l’objet mathématique obtenu. Pour choisir les mesures adéquates, nous nous sommes inspirés d’études similaires effectuées dans d’autres pays ou villes.  
+<!-- À partir du graphe construit, nous avons eu l’occasion de réaliser plusieurs analyses sur l’objet mathématique obtenu. Pour choisir les mesures adéquates, nous nous sommes inspirés d’études similaires effectuées dans d’autres pays ou villes.    -->
+
+### La subjectivité de nos choix 
 
 Comme Boyd et Crawford le mentionnent dans leur *deuxième* provocation pour les Big Data, l’impératif  d’objectivité et d'exactitude est trompeur. Lors de la construction initiale du graphe, nous avons dû faire des choix quant au nettoyage et au traitement des données. Dès lors, notre analyse devient subjective et nous sommes limités en matière de comparaison et d’interprétation. 
 
@@ -133,11 +129,15 @@ As a large mass of raw information, Big Data is not self-explanatory. And yet th
 <p>‒ David Bollier, The Promise and Peril of Big Data</p>
 </blockquote>
 
-Par exemple, on serait peut-être tentés de dire que le réseau ferré pakistanais est plus connexes du réseau suisse vu le degré moyen elevé, cependant un regard plus critique révèle que la différence est la définition du réseau ferré, dans notre analyse nous incluons les trains régionaux et les grandes lignes dans cette définition, pourtant Mohamad et Wang incluent aussi les métros, ce qui introduit beaucoup plus de stations avec une grande connectivité.
+Prenons aussi les résultats de la détection de communautés qui, à première vue, semblent très satisfaisants et représentatifs des communautés tarifaires en Suisse, ou mêmes de la géographie suisse. Nous pouvons cependant voir quelques irrégularités à la limite entre deux communautés : Brig (VS) fait partie du même sous-graphe que Berne et Bâle, Palézieux et Palézieux-village sont dans deux communautés différentes. Cela est inhérent à la conception de l'algorithme utilisé : un noeud devrait pouvoir appartenir à plusieurs communautés.
 
-En effet, pour pouvoir comparer des analyses, il faut que ces dernières soient effectuées dans des conditions similaires. Rien ne garantit que notre graphe a été construit de la même manière que celui d’une étude connexe. De plus, chaque ville ou pays connaît une situation unique, et une géographie propre à son territoire. Il faut donc tenir compte de cela lors de la comparaison des résultats d’un pays à l’autre. Alors qu'il est vrai que nous abstrayons le réseau ferroviaire sous forme de graphe, le contexte reste essentiel : cela résonne avec la *quatrième* provocation de Boyd et Crawford. 
+### La comparaison avec d'autres études
 
-Nous avons aussi les résultats de la détection de communautés qui semblent à première vue très satisfaisant et plutôt représentant les communautés tarifaires en Suisse, comme la communauté autour de Lausanne ou celle au Grisons. Nous voyons cependant des problèmes dans l'interprétabilité des résultats. Prenons l'exemple de Brig au Valais qui est inclus dans le même sous graph que Bern et Bâle, ou le fait que Palézieux et Palézieux-village sont dans deux communautés différentes. Ceci montre une limitation du choix de l'algorithme qui a défini ces sous graphs.
+Pour pouvoir comparer des analyses, il faut que ces dernières soient effectuées dans des conditions similaires. Rien ne garantit que notre graphe a été construit de la même manière que celui d’une étude connexe. De plus, chaque ville ou pays connaît une situation unique, et une géographie propre à son territoire. Il faut donc tenir compte de cela lors de la comparaison des résultats d’un pays à l’autre. Alors qu'il est vrai que nous abstrayons le réseau ferroviaire sous forme de graphe, le contexte reste essentiel : cela résonne avec la *quatrième* provocation de Boyd et Crawford. 
+
+Par exemple, il serait tentant de dire que le réseau ferré pakistanais est plus connecté que le suisse, vu son degré moyen plus elevé. Cependant, un regard plus attentif révèle que la différence s'explique par la construction du graphe du réseau ferré de l'étude : dans notre analyse nous n'incluons que les trains, alors que Mohmand & Wang (2014) prennent aussi en compte les métros, ce qui introduit beaucoup plus de liens, et explique donc une connectivité supérieure.
+
+### L'utilisation de plusieurs sources de données
 
 Enfin, notre graphe croise deux sources d’information : les données GTFS d’une part, et les statistiques sur le nombre de personnes montant et descendant des trains par gare d’autre part. Le nombre de gares dans la première est largement supérieur au nombre de gares de la deuxième. Nous avons, ici aussi, dû faire un choix qui introduit un biais devant être pris en compte lors de l’interprétation des résultats. Il est pertinent de faire le lien avec la troisième *provocation* de Boyd et Crawford, stipulant que l’abondance des données ne rime pas avec qualité. 
 
