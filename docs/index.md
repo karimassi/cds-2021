@@ -30,7 +30,7 @@ Beaucoup de chercheurs se sont aussi intéressés à l'analyse des réseaux form
 <SELECT NAME="options" ONCHANGE="document.getElementById('map').src = this.options[this.selectedIndex].value">
 <option value="network.html">Base graph</option>
 <option value="network_betweenness.html">Betweenness centrality</option>
-<!-- <option value="network_communities.html">Community detection</option> -->
+<option value="network_communities.html">Community detection</option> 
 </SELECT>
 </form>
 
