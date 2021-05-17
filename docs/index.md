@@ -25,11 +25,7 @@ Beaucoup de chercheurs se sont aussi intéressés à l'analyse des réseaux form
 
 ## La construction du graphe
 
-Pour analyser le réseau ferroviaire helvétique, il faut d'abord commencer par construire le l'objet mathématique sous-jacent. Les deux topologies les plus utilisées sont *L-space* et *P-space*:
--  *L-space* permet d'étudier l'accessibilité de certaines stations: il existe un lien entre deux stations, A et B, s'il existe au moins une façon d'aller de A à B. 
-- *P-space* permet une analyse plus générale et complexe du réseau: il existe un lien entre deux stations, s'il existe un service direct et sans changement entre les deux. 
-
-La deuxième topologie génère plus de liens que la première, et semble plus adéquate à notre étude. 
+Pour analyser le réseau ferroviaire helvétique, il faut d'abord commencer par construire le l'objet mathématique sous-jacent. 
 
 Les données GTFS incluent tous les modes de transport public en Suisse. Comme notre étude porte sur le transport ferroviaire, nous avons décidé de garder les données relatives aux trains, en éliminant trams, métros, crémaillères et remontées mécaniques. Nous avons aussi décidé d'ignorer les liens vers les arrêts en dehors de la Suisse. Enfin, pour pouvoir étudier les propriétés du réseau lors d'une journée type, nous avons choisi de modéliser notre réseau selon l'horaire du Jeudi, journée durant laquelle circule le plus de services. 
 
@@ -37,7 +33,7 @@ Les données sont séparées en plusieurs tables: celle des arrêts, celle des i
 
 Tous les nœuds et tous les segments d'itinéraires n'ont pas la même importance. Pour pondérer notre graphe, nous avons pris en compte la fréquence de passage des trains sur un tronçon du réseau, ainsi que la fréquentation journalière moyenne de chaque gare. La fréquence de passage est trivialement obtenue en comptant le nombre d'itinéraires qui passent sur un tronçon lors d'une journée. Quant à la fréquentation journalière, nous avons utilisé un jeu de données additionnel contenant les informations nécessaires. Ce dernier ne couvrant qu'un peu plus de la moitié des gares de notre réseau, nous avons supposé une fréquentation nulle pour les gares manquantes.  
 
-Le graphe construit est visible sur la carte ci-dessous. Il est possible de masquer le calque des nœuds ou des liens. 
+Le graphe construit est visible sur la carte ci-dessous. Il est possible de masquer le calque des nœuds ou celui des liens. 
 
 <br/>
 <iframe src="network.html" id="map" height="600px" width="100%" style="border:none;"></iframe>
