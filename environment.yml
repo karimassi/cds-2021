@@ -4,6 +4,7 @@ channels:
   - anaconda
   - defaults
 dependencies:
+  - folium
   - jupyter
   - jupyterlab
   - matplotlib

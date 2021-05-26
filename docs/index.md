@@ -58,11 +58,19 @@ Les résultats sont présentés dans le tableau ci-dessous. Nous avons aussi rap
 | Transitivité moyenne | Average clustering | 0.2602 | 0.97 | 0.9341 | 0.309 | 0.68 |
 | Assortativité | Assortativity | 0.2815 | 0.34 | −0.0875 | 0.24 | - |
 
-En comparaison au nombre de nœuds, le nombre de liens semble insuffisant. De plus, les nœuds ont un degré moyen de 3 : c'est à dire qu'il y a plus de gares très peu connectées, qu'il n'y a de grandes gares connectées. La transitivité moyenne de 0.26 est caractéristique d'un réseau décentralisé, sans beaucoup de gares centrales. Cela justifie aussi la centralité de proximité moyenne très basse.
+Les mesures descriptives de la taille du réseau offrent une vue globale sur sa structure. Le rapport du nombre de nœuds contre le nombre de liens semble élevé en Suisse, tout comme il l'est en Grande-Bretagne. Cela indique que le réseau ferré suisse comporte beaucoup de gares, mais que seulement quelques-unes sont fortement connectées. De plus, les nœuds ont un degré moyen de 3 : cela veut dire qu'en moyenne, il est possible d'atteindre trois destinations en un seul arrêt. Le diamètre du réseau ferré suisse est de 36. Cette mesure correspond au nombre maximal de gares qui séparent deux nœuds. 
+
+En prenant en compte la pondération des liens, c'est-à-dire le nombre de trains par jour sur un certain tronçon, la distribution des degrés peut être interprétée. Le degré pondéré d'un nœud correspond donc au nombre de trains qui s'arrêtent à ce nœud lors d'une journée. En moyenne, 170 trains s'arrêtent à un nœud donné. La gare centrale de Zurich connaît le nombre d'arrêts maximal du réseau de 2931.
+
+Notre graphe n'est pas connecté ; c'est-à-dire qu'il existe un ou plusieurs nœuds qui ne sont pas atteignables depuis le reste du réseau. Certaines mesures requièrent un graphe connecté : nous avons donc calculé ces dernières un considérant la plus grande composante connectée du graphe. 
+
+### Taille moyenne du chemin le plus court
+
+Pour obtenir cette mesure, le chemin le plus court entre chaque paire de nœuds est calculé. La taille moyenne de ces chemins peut être interprétée comme une mesure d'efficacité du réseau. Plus elle est courte, plus l'efficacité à faire faire transiter le flux, ici les trains, est grande. En d'autre termes, cette mesure indique qu'en moyenne, 10 arrêts sont nécessaires pour voyager d'un arrêt à un autre. 
  
 ### Centralité des noeuds
 
-Les mesures de centralité permettent d'identifier les stations qui connaissent un fort trafic et une congestion élevée. La centralité d'intermédiarité d'un nœud est le nombre de plus courts chemins qui y passent. La gare d'Olten est la plus centrale vis-à-vis de cette mesure : elle joue le rôle de carrefour entre les différentes régions de la Suisse. La centralité de proximité d'un nœud est la plus courte distance moyenne avec tous les autres nœuds: plus la valeure est grande, plus la gare est importante et offre une gamme de service plus large. Ici, la distance entre deux stations est le nombre de stations minimal qui les sépare.
+Les mesures de centralité permettent d'identifier les stations qui connaissent un fort trafic et une congestion élevée. La centralité d'intermédiarité d'un nœud est le nombre de plus courts chemins qui y passent. La gare d'Olten est la plus centrale vis-à-vis de cette mesure : elle joue le rôle de carrefour entre les différentes régions de la Suisse. La centralité de proximité d'un nœud indique la proximité de ce nœud au reste du graphe. Plus précisément, c'est la plus courte distance moyenne avec tous les autres nœuds: plus la valeure est grande, plus la gare est centrale et offre une gamme de service plus large. Ici, la distance entre deux stations est le nombre de stations minimal qui les sépare. 
 
 | Gare | Centralité d’intermédiarité |  |  |  | Gare | Centralité de proximité |
 |-|:-:|-|-|-|-|:-:|
@@ -81,6 +89,20 @@ Les mesures de centralité permettent d'identifier les stations qui connaissent 
 
 <iframe src="network_betweenness.html" id="map_betweenness" height="600px" width="100%" style="border:none;"></iframe>
 
+### Transitivité moyenne
+
+La transitivité d'un nœud, ou le *clustering coefficient* en anglais, désigne le nombre de triades fermées (triangle formé par trois nœuds) auxquelles participe ce nœud, sur le nombre de triades possibles dans le réseau. En d'autre termes, c'est la probabilité que, pour un nœud donné, ses deux voisins soient aussi connectés entre eux. Cette mesure peut aussi être étendue à des groupes de 4 ou 5 nœuds interconnectés. 
+
+La transitivité moyenne de 0.26 est caractéristique d'un réseau décentralisé, sans beaucoup de gares centrales. Cela justifie aussi la centralité de proximité moyenne très basse.
+
+### Coefficient d'assortativité
+
+Cette mesure prend en considération la corrélation  des degrés au sein de chaque paire de nœuds. Autrement dit, elle indique si les nœuds similaires (vis-à-vis de leur degré) sont connectés entre eux. Cela peut être illustré en le degré moyen des voisins les plus proches, pour les nœuds de degré *k*. D'après Mohmand & Wang (2014), si le degré moyen augmente avec la valeur de *k*, alors le réseau est assortatif. Nous avons réalisé l'expérience (visualisée ci-dessous) et pouvons donc conclure que le réseau ferré suisse est assortatif. 
+
+<div align="center">
+    <img src="avg_nn_deg.png" alt="average neareast neighbor degree" class="center">
+</div>
+
 ### Détection de communautés
 
 Nous avons trouvé intéressant de faire une détection de communauté sur le réseau étudié, en utilisant la *détection de communautés par modularité*. Cet algorithme cherche à maximiser la modularité du graphe, c'est-à-dire à le séparer en sous-graphes fortement intra-connectés mais peu interconnectés. Cette approche aboutit à 55 sous-graphes différents : les 10 les plus grands couvrent la majorité du territoire suisse.
@@ -89,6 +111,16 @@ Nous avons trouvé intéressant de faire une détection de communauté sur le r�
 
 <iframe src="network_communities.html" id="map_communities" height="600px" width="100%" style="border:none;"></iframe>
 
+### Réseau petit monde
+
+Un réseau petit monde, ou *small-world network*, est un réseau où:
+- La plupart des nœuds ne sont pas voisins entre eux,  
+- Les voisins d'un nœud sont probablement voisins entre eux, 
+- Un nœud est atteignable depuis presque n'importe quel nœud, en un petit nombre de sauts. 
+
+En d'autres termes, dans de tels réseaux, des groupes de nœuds sont fortement connectés entre eux, mais ces groupes ne sont pas fortement interconnectés. Cela se manifeste par la présence de *cliques* et une forte densité de liens. Ils sont caractérisés par un petit diamètre et une forte transitivité.s 
+
+Pour déterminer si un réseau est *small world*, il suffit de calculer la transitivité et le diamètre du graphe et les comparer avec les mêmes mesures d'un graphe aléatoire de la même taille. L'indice sigma (Humphries & Gurney, 2008) calculé en fonction du rapport de ces deux mesures permet donc de savoir si un réseau est *small world*: c'est le cas s'il est supérieur à 1. Dans le cas de la Suisse, sigma vaut environ 30 : le réseau ferré helvétique est donc un réseau petit monde. 
 
 ## À propos du format des données 
 
