@@ -72,18 +72,18 @@ Pour obtenir cette mesure, le chemin le plus court entre chaque paire de nœuds 
 
 Les mesures de centralité permettent d'identifier les stations qui connaissent un fort trafic et une congestion élevée. La centralité d'intermédiarité d'un nœud est le nombre de plus courts chemins qui y passent. La gare d'Olten est la plus centrale vis-à-vis de cette mesure : elle joue le rôle de carrefour entre les différentes régions de la Suisse. La centralité de proximité d'un nœud indique la proximité de ce nœud au reste du graphe. Plus précisément, c'est la plus courte distance moyenne avec tous les autres nœuds: plus la valeure est grande, plus la gare est centrale et offre une gamme de service plus large. Ici, la distance entre deux stations est le nombre de stations minimal qui les sépare. 
 
-| Gare | Centralité d’intermédiarité |  |  |  | Gare | Centralité de proximité |
-|-|:-:|-|-|-|-|:-:|
-| Olten | 0.4795 |  |  |  | Olten | 0.1629 |
-| Brig | 0.3930 |  |  |  | Zürich HB | 0.1621 |
-| Zürich HB | 0.3384 |  |  |  | Bern | 0.1615 |
-| Zollikofen | 0.2799 |  |  |  | Basel SBB | 0.1588 |
-| Basel SBB | 0.2587 |  |  |  | Münsingen | 0.1511 |
-| Münsingen | 0.2486 |  |  |  | Brig | 0.1509 |
-| Bellinzona | 0.2277 |  |  |  | Aarau | 0.1505 |
-| Nyon | 0.1736 |  |  |  | Oensingen | 0.1489 |
-| Sion | 0.1692 |  |  |  | Brugg AG | 0.1489 |
-| Lausanne | 0.1669 |  |  |  | Fribourg/Freiburg | 0.1479 |
+| Gare | Centralité d’intermédiarité |  | Gare | Centralité de proximité |  | Gare | Centralité de degré |
+|-|-|-|-|-|-|-|-|
+| Olten | 0.4795 |  | Olten | 0.1629 |  | Zürich HB | 0.0175 |
+| Brig | 0.3930 |  | Zürich HB | 0.1621 |  | Bern | 0.0169 |
+| Zürich HB | 0.3384 |  | Bern | 0.1615 |  | Olten | 0.0169 |
+| Zollikofen | 0.2799 |  | Basel SBB | 0.1588 |  | Luzern | 0.0139 |
+| Basel SBB | 0.2587 |  | Münsingen | 0.1511 |  | Lausanne | 0.0114 |
+| Münsingen | 0.2486 |  | Brig | 0.1509 |  | Arth-Goldau | 0.0102 |
+| Bellinzona | 0.2277 |  | Aarau | 0.1505 |  | Basel SBB | 0.0096 |
+| Nyon | 0.1736 |  | Oensingen | 0.1489 |  | Winterthur | 0.0090 |
+| Sion | 0.1692 |  | Brugg AG | 0.1489 |  | Biel/Bienne | 0.0090 |
+| Lausanne | 0.1669 |  | Fribourg/Freiburg | 0.1479 |  | St. Gallen | 0.0090 |
 
 <br/>
 
@@ -118,7 +118,7 @@ Un réseau petit monde, ou *small-world network*, est un réseau où:
 - Les voisins d'un nœud sont probablement voisins entre eux, 
 - Un nœud est atteignable depuis presque n'importe quel nœud, en un petit nombre de sauts. 
 
-En d'autres termes, dans de tels réseaux, des groupes de nœuds sont fortement connectés entre eux, mais ces groupes ne sont pas fortement interconnectés. Cela se manifeste par la présence de *cliques* et une forte densité de liens. Ils sont caractérisés par un petit diamètre et une forte transitivité.s 
+En d'autres termes, dans de tels réseaux, des groupes de nœuds sont fortement connectés entre eux, mais ces groupes ne sont pas fortement interconnectés. Cela se manifeste par la présence de *cliques* et une forte densité de liens. Ils sont caractérisés par un petit diamètre et une forte transitivité.
 
 Pour déterminer si un réseau est *small world*, il suffit de calculer la transitivité et le diamètre du graphe et les comparer avec les mêmes mesures d'un graphe aléatoire de la même taille. L'indice sigma (Humphries & Gurney, 2008) calculé en fonction du rapport de ces deux mesures permet donc de savoir si un réseau est *small world*: c'est le cas s'il est supérieur à 1. Dans le cas de la Suisse, sigma vaut environ 30 : le réseau ferré helvétique est donc un réseau petit monde. 
 
