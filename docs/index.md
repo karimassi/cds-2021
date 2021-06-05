@@ -46,7 +46,7 @@ Les résultats sont présentés dans le tableau ci-dessous. Nous avons aussi rap
 
 | Propriété | Traduction | RF Suisse | RF Pakistanais | TP Singapourien | RF Britanique | RF Chinois |
 |-|-|:-:|:-:|:-:|:-:|:-:|
-| Nombre de noeuds | Number of nodes | 1663 | 628 | 93 | 2575 | 1192 |
+| Nombre de nœuds | Number of nodes | 1663 | 628 | 93 | 2575 | 1192 |
 | Nombre de liens | Number of edges | 2514 | 6078 | 3843 | 4450 | 67594 |
 | Diamètre | Diameter | 36 | 5 | 2 | 48 | - |
 | Chemin le plus court moy. | Shortest path (avg.) | 10.319 | 3.15 | 1.101 | 11.82 | 2.21 |
@@ -68,7 +68,7 @@ Notre graphe n'est pas connecté ; c'est-à-dire qu'il existe un ou plusieurs n�
 
 Pour obtenir cette mesure, le chemin le plus court entre chaque paire de nœuds est calculé. La taille moyenne de ces chemins peut être interprétée comme une mesure d'efficacité du réseau. Plus elle est courte, plus l'efficacité à faire faire transiter le flux, ici les trains, est grande. En d'autre termes, cette mesure indique qu'en moyenne, 10 arrêts sont nécessaires pour voyager d'un arrêt à un autre. 
  
-### Centralité des noeuds
+### Centralité des nœuds
 
 Les mesures de centralité permettent d'identifier les stations qui connaissent un fort trafic et une congestion élevée. La centralité d'intermédiarité d'un nœud est le nombre de plus courts chemins qui y passent. La gare d'Olten est la plus centrale vis-à-vis de cette mesure : elle joue le rôle de carrefour entre les différentes régions de la Suisse. La centralité de proximité d'un nœud indique la proximité de ce nœud au reste du graphe. Plus précisément, c'est la plus courte distance moyenne avec tous les autres nœuds: plus la valeure est grande, plus la gare est centrale et offre une gamme de service plus large. Ici, la distance entre deux stations est le nombre de stations minimal qui les sépare. 
 
@@ -85,9 +85,11 @@ Les mesures de centralité permettent d'identifier les stations qui connaissent 
 | Sion | 0.1692 |  | Brugg AG | 0.1489 |  | Biel/Bienne | 0.0090 |
 | Lausanne | 0.1669 |  | Fribourg/Freiburg | 0.1479 |  | St. Gallen | 0.0090 |
 
-<br/>
 
-<iframe src="network_betweenness.html" id="map_betweenness" height="600px" width="100%" style="border:none;"></iframe>
+Il serait interessant d'avoir une centralité combinée, qui englobe les trois mesures ci-dessus, comme l'ont fait Cao et al. (2019). Nous avons crée une telle mesure, en combinant les trois centralités de manière pondérée. Ensuite, à l'aide de l'algorithme de clustering *k-means*, nous avons divisé les nœuds, et donc les villes ,en quatre catégories: les villes principales (*core*), les villes secondaires (*bridge*), les villes périphériques, et celles ultra-périphériques. La carte ci-dessous permet de visualiser cette classification.  
+
+<br/>
+<iframe src="network_nodes_classification.html" height="600px" width="100%" style="border:none;"></iframe>
 
 ### Transitivité moyenne
 
@@ -108,7 +110,6 @@ Cette mesure prend en considération la corrélation  des degrés au sein de cha
 Nous avons trouvé intéressant de faire une détection de communauté sur le réseau étudié, en utilisant la *détection de communautés par modularité*. Cet algorithme cherche à maximiser la modularité du graphe, c'est-à-dire à le séparer en sous-graphes fortement intra-connectés mais peu interconnectés. Cette approche aboutit à 55 sous-graphes différents : les 10 les plus grands couvrent la majorité du territoire suisse.
 
 <br/>
-
 <iframe src="network_communities.html" id="map_communities" height="600px" width="100%" style="border:none;"></iframe>
 
 ### Réseau petit monde
