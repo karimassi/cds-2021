@@ -1,14 +1,40 @@
 # Typologie par Topologie
 *Une étude de la topologie du réseau ferroviaire suisse.*
 
-**La typologie du réseau ferroviaire helvétique traduit-elle des particularités territoriales suisses ?**
+> This repository contains work done in the scope of the *Critical Data Studies* class at EPFL. The report and companion website are written in French. 
 
-Les CFF sont reconnus pour leur excellence en matière de transport ferroviaire en comparaison avec les pays voisins. D'un point de vue purement topologique, le réseau ferré Suisse est maillé et décentralisé, contrairement au réseau Français en étoile, polarisé autour de Paris. 
+Ce dépôt contient notre travail dans le cadre du projet de *Critical Data Studies*. Il s'agit d'une étude de la structure du réseau ferroviaire suisse. 
 
-Cependant, des disparités en matière d’offre ferroviaire peuvent apparaître dans certaines régions suisses. En effet, les niveaux d’investissement en infrastructure sur le réseau ferroviaire n’ont pas profité équitablement aux différents cantons suisses. Ces inégalités peuvent être perçues en observant les projets de développement entrepris par les CFF. Par exemple, la plupart des projets de [Rail 2000](https://en.wikipedia.org/wiki/Rail_2000) proposent principalement des améliorations en Suisse alémanique. Ce n’est que récemment que l’importance a été donnée à la Suisse romande à travers les projets comme [Léman 2030](https://company.sbb.ch/fr/entreprise/projets/suisse-romande-et-valais/leman-2030.html) et Léman Express. 
+Il contient:
 
-Fort de ce constat, il s’agira dans ce travail d'analyser la topologie du réseau ferroviaire suisse d’un point de vue (purement) mathématique. Dans un premier temps, nous étudierons les données [GTFS](https://developers.google.com/transit/gtfs/?hl=fr) mises à disposition par les CFF afin de construire un graphe représentant le réseau ferré. Ensuite, à l’aide d’outils d’analyse de graphes, nous étudierons les propriétés de ce dernier pour détecter des particularités territoriales et créer une typologie. 
+- Le notebook [`graph_construction.ipynb`](graph_construction.ipynb), dans lequel nous nettoyons les données puis construisons le graphe associé au réseau ferroviaire.
+- Le notebook [`graph_analysis.ipynb`](graph_analysis.ipynb), dans lequel nous analysons le graphe construit. 
+- Le [rapport](rapport.pdf) qui décrit notre démarche, nos résultats et leur analyse sous un format statique. 
+- Le dossier `docs` qui contient tous les éléments nécessaires au site web. Le site est accessible à [cette addresse](karimassi.github.io/railgraph-ch/).
+- Le fichier `environment.yml` qui spécifie toutes les librairies utilisées dans ce projet, à des fins de reproductibilité. 
 
-Une telle modélisation nous permettra donc d'étudier les différentes propriétés du réseau comme la centralité des gares ou encore le poids de certains tronçons au sein du système ferroviaire. Des méthodes comme le clustering ou encore la détection d’éléments connectés pourraient nous aider à identifier des zones mal desservies. 
+Pour lancer le premier notebook, il faut que les données originales soient disponibles dans le dossier `data/raw` avec l'arborescence ci-dessous. Pour lancer le second notebook, il faut soit avoir lancé le premier notebook, soit utiliser les données traitées, dans le dossier `data/processed`.
+```
+.
+├── data
+│   ├── processed
+│   │   ├── edges_counts.pickle
+│   │   ├── railgraph.pickle
+│   │   ├── railway_stops.pickle
+│   │   └── stop_id_to_name
+│   └── raw
+│       ├── agency.txt
+│       ├── calendar.txt
+│       ├── calendar_dates.txt
+│       ├── feed_info.txt
+│       ├── peinaussteiger2018.xlsx
+│       ├── routes.txt
+│       ├── stop_times.txt
+│       ├── stops.txt
+│       ├── transfers.txt
+│       └── trips.txt
+├── ...
+```
 
-Nous présenterons ce travail sous la forme d’un rapport en ligne hébergé sur sur un site web.  
+Les fichiers donc le nom suit la forme `*.txt` correspondent au jeu de données GTFS disponible [ici](https://opentransportdata.swiss/fr/dataset/timetable-2021-gtfs2020). Le fichier `peinaussteiger2018.xlsx` contient les fréquentations moyennes des gares, et est disponible [ici](https://opentransportdata.swiss/fr/dataset/einundaus).
+

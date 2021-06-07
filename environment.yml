@@ -16,6 +16,7 @@ dependencies:
   - scikit-learn
   - scikit-learn-extra
   - seaborn
-  - pip
+  - pip:
+      - reverse-geocoder
   - networkx
 prefix: /home/karim/anaconda3/envs/ipese_sp
