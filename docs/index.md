@@ -8,7 +8,7 @@ Cependant, des disparités en matière d’offre ferroviaire peuvent apparaître
 <br/><br/>
 **La typologie du réseau ferroviaire helvétique traduit-elle des particularités territoriales suisses ?**
 <br/><br/>
-Il s’agira dans ce travail d’analyser la topologie du réseau ferroviaire suisse d’un point de vue mathématique. Dans un premier temps, nous étudierons les données [GTFS](https://developers.google.com/transit/gtfs/?hl=fr) (*General Transit Feed Specification*) mises à disposition par les CFF afin de construire un graphe représentant le réseau ferré. Ensuite, à l’aide d’outils d’analyse de graphes, nous étudierons les propriétés de ce dernier pour détecter des particularités territoriales et créer une typologie.
+Il s’agira dans ce travail d’analyser la topologie du réseau ferroviaire suisse d’un point de vue mathématique. Dans un premier temps, nous étudierons les données [GTFS](https://opentransportdata.swiss/en/cookbook/gtfs/) (*General Transit Feed Specification*) mises à disposition par les CFF afin de construire un graphe représentant le réseau ferré. Ensuite, à l’aide d’outils d’analyse de graphes, nous étudierons les propriétés de ce dernier pour détecter des particularités territoriales et créer une typologie.
 
 Une telle modélisation nous permettra donc d’étudier les différentes propriétés du réseau comme la centralité des gares ou encore le poids de certains tronçons au sein du système ferroviaire. La contextualisation de notre analyse dans le cadre de la Suisse nous permettra de déterminer si certaines régions sont mieux desservies, ou même plus favorables au développement des transports publics. 
 
